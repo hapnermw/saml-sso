@@ -1,0 +1,21 @@
+#This is the cogynt-sso test service unit
+#
+[Unit]
+Description=Cogynt Core SSO
+#Disable start rate limiting for this service
+StartLimitIntervalSec=0
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+#Time to sleep before restarting this service
+RestartSec=5
+
+Environment=DB_HOST=database-1.chsevror60xq.us-east-1.rds.amazonaws.com
+Environment=DB_USER=postgres
+Environment=DB_PW=adminadmin
+
+ExecStart=/home/core/cogynt_core_sso 

@@ -1,0 +1,17 @@
+#This is the mock cogynt service unit
+#
+[Unit]
+Description=Mock Cogynt
+#Disable start rate limiting for this service
+StartLimitIntervalSec=0
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+#Time to sleep before restarting this service
+RestartSec=5
+
+ExecStart=/home/core/mock_cogynt --host=sso-cogynt.resilient-networks.com

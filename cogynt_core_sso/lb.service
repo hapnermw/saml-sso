@@ -1,0 +1,23 @@
+#This is the service descriptor for a Cogynt IdP reverse proxy that is implemented with the latest 
+#nginx:alpine container image from DockerHub. 
+#
+[Unit]
+Description=Cogynt Test Reverse Proxy
+Requires=docker.service
+After=docker.service 
+[Install]
+WantedBy=multi-user.target
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker kill lb-cntnr
+ExecStartPre=-/usr/bin/docker rm lb-cntnr
+ExecStart=/usr/bin/docker run \
+  --name=lb-cntnr \
+  --network="host" \
+  --volume=/home/core/lb-conf:/etc/nginx/conf \
+  nginx:alpine \
+  nginx \
+  -c /etc/nginx/conf/nginx.conf \
+  -g "daemon off;"
+ExecStop=/usr/bin/docker stop lb-cntnr

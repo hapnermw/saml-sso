@@ -1,0 +1,16 @@
+#This is the mock-idp test service unit
+#
+[Unit]
+Description= Mock IdP
+#Disable start rate limiting for this service
+StartLimitIntervalSec=0
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+#Time to sleep before restarting this service
+RestartSec=5
+ExecStart=/home/ubuntu/mock_idp --host=idp-cogynt.resilient-networks.com -cert /home/ubuntu/star_cogilitycloud_com.cert.pem -key /home/ubuntu/star_cogilitycloud_com.key.pem
